@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dawit Yemane | Portfolio</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+          
+  <style>
+    :root {
+      --royal-blue: #4169E1;
+      --dark-blue: #0A1F44;
+      --accent: #FFD700;
+      --bg: #0A1F44;
+      --card-bg: #1c2a4a;
+      --text-color: #f0f0f0;
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family:'Inter', sans-serif;
+      background:var(--bg);
+      color:var(--text-color);
+      line-height:1.7;
+      transition:background 0.3s,color 0.3s;
+    }
+
+    /* Custom Scrollbar */
+    body::-webkit-scrollbar { width: 12px; }
+    body::-webkit-scrollbar-track { background: var(--bg); }
+    body::-webkit-scrollbar-thumb { background-color: var(--accent); border-radius: 10px; border: 3px solid var(--bg); }
+
+    header {text-align:center;padding:80px 20px 40px;}
+    header img {width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--royal-blue);}
+    header h1 {font-family:'Playfair Display',serif;font-size:2.4em;margin:15px 0;color:var(--accent);}
+    .social-icons {margin:10px 0;}
+    .social-icons a {margin:0 10px;color:var(--royal-blue);text-decoration:none;transition:color 0.3s;position:relative;display:inline-flex;align-items:center;}
+    .social-icons a:hover {color:var(--accent);}    
+    .social-icons a svg {width:28px;height:28px;fill:currentColor;}
+
+    .social-icons a::after {
+      content: attr(title);
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 0.75em;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .social-icons a:hover::after { opacity: 1; }
+
+    main {display:flex;flex-direction:column;gap:40px;padding:20px 40px;max-width:1100px;margin:0 auto;}
+    .card {background:var(--card-bg);padding:35px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:background 0.3s,color 0.3s;}
+    .card h2 {font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:20px;}
+    .card-content {display:flex;flex-direction:column;gap:20px;}
+
+    /* Timeline style only for Experience and Projects */
+    .experience .card-content, .projects .card-content {position:relative;}
+    .experience .card-content::before, .projects .card-content::before {content:"";position:absolute;left:20px;top:0;bottom:0;width:3px;background:var(--royal-blue);}
+    .experience-item, .project {position:relative;padding-left:50px;}
+    .experience-item::before, .project::before {content:"";position:absolute;left:11px;top:8px;width:18px;height:18px;background:var(--accent);border-radius:50%;border:3px solid var(--royal-blue);}
+
+    .project h3, .experience-item h3 {margin-bottom:4px;color:var(--royal-blue);font-weight:600;font-family:'Playfair Display',serif;}
+    .project .date, .experience-item .date {font-size:0.9em;color:#ccc;margin-bottom:8px;}
+    .project p, .experience-item p {margin-bottom:8px;}
+    .project-links a {margin-right:15px;color:var(--accent);text-decoration:none;font-weight:500;}
+
+    /* Image grid for multiple images */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .image-gallery img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .project img, .project video, .experience-item img {width:100%;border-radius:8px;margin-top:10px;cursor:pointer;}
+    .clean-community-img { width: 200px !important; height: auto; display: block; margin: 10px 0; border-radius: 8px; }
+
+    footer {text-align:center;padding:20px;font-size:0.85em;color:var(--text-color);font-family:'Inter',sans-serif;}
+
+    @media(max-width:600px){ header h1 {font-size:2em;} .experience .card-content::before,.projects .card-content::before{left:10px;} .experience-item,.project{padding-left:30px;} .experience-item::before,.project::before{left:-2px;} }
+
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.9);
+    }
+
+    .lightbox-content {
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      margin: 5% auto;
+      border-radius: 10px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .organization {
+      color: var(--accent);
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+      font-size: 1.05em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/ProfilePhoto1.png" alt="Profile Photo">
+    <h1>Dawit Yemane</h1>
+    <div class="social-icons">
+      <a href="#" title="Website" aria-label="Website" target="_blank" rel="noreferrer noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+      </a>
+      <a href="#" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noreferrer noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-1.34-.02-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.96v5.71h-3v-11h2.88v1.5h.04c.4-.75 1.37-1.54 2.82-1.54 3.01 0 3.57 1.98 3.57 4.56v6.48z"/></svg>
+      </a>
+      <a href="#" title="GitHub" aria-label="GitHub" target="_blank" rel="noreferrer noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.42 7.86 10.96.58.11.79-.25.79-.56v-2.18c-3.2.7-3.87-1.54-3.87-1.54-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.7.08-.7 1.18.08 1.8 1.21 1.8 1.21 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.99 0 1.99.13 2.92.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.6.23 2.78.11 3.07.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.08.8 2.18v3.23c0 .31.21.68.8.56A10.51 10.51 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="card about">
+      <h2>About Me</h2>
+      <div class="card-content">
+        <p>Hi, I’m Dawit! I’m a tech student passionate about building innovative projects and contributing to my community. Outside of coding, I enjoy exploring new ideas, learning, and finding ways to create a positive impact.</p>
+      </div>
+    </div>
+
+    <div class="card experience">
+      <h2>Experience</h2>
+      <div class="card-content">
+        <div class="experience-item">
+          <h3>Undergraduate Course Assistant (UCA)</h3>
+          <div class="organization">Augusta University</div>
+          <div class="date">Aug 2025 – Present</div>
+          <p>
+            <ul style="margin-left: 1em;">
+              <li>Assisted students in CSCI 1301: Principles of Programming with learning the basics of C# programming.</li>
+              <li>Provided lab support and helped troubleshoot C# code in VS Code to support hands-on learning.</li>
+              <li>Answered questions and provided guidance on assignments for CSCI 1301 students.</li>
+            </ul>
+          </p>
+          <div class="image-gallery">
+            <img src="images/ucacode.png" alt="UCA">
+          </div>
+        </div>
+        <div class="experience-item">
+          <h3>Roman's Summer Bridge Program</h3>
+          <div class="organization">Eritrean Community Cultural Civic Center of Georgia</div>
+          <div class="date">Jun 2025 – Present</div>
+          <p>
+        
+              <ul style="margin-left: 1em;">
+              <li>Founded a community-focused summer bridge program supporting elementary and middle school students in building academic confidence and foundational skills before the new school year. </li>
+              <li>Led curriculum development, volunteer coordination, and program operations.</li>
+              
+            </ul>
+          </p>
+          <div class="image-gallery">
+            <img src="images/Bridge 2.png" alt="Bridge demo 1">
+            <img src="images/Bridge 1.png" alt="Bridge demo 2">
+            <img src="images/Bridge 3.png" alt="Bridge demo 3">
+            <img src="images/Bridge 4.png" alt="Bridge demo 4">
+          </div>
+        </div>
+        <div class="experience-item">
+          <h3>Software Engineering Intern</h3>
+          <div class="organization">Clean Community Inc</div>
+          <div class="date">May 2025 – Aug 2025</div>
+          <p>
+            <ul style="margin-left: 1em;">
+              <li>Developed backend server logic for a multiplayer game using Unity, C#, and Mirror.</li>
+              <li>Collaborated with a team of engineers to design and implement core game features.</li>
+            </ul>
+          </p>
+          <div class="image-gallery">
+            <img src="images/clean community inc logo.png" alt="Internship demo 1" class="clean-community-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card projects">
+      <h2>Hackathons</h2>
+      <div class="card-content">
+
+        <div class="project">
+          <h3>PureQuery</h3>
+          <div class="organization">Open Source AI Hackathon #18 at Microsoft Reactor Redmond</div>
+          <div class="date">June 2025</div>
+          <p>
+            <ul style="margin-left: 1em;">
+              <li>Built PureQuery — a browser tool that helps users make smarter shopping decisions</li>
+              <li>Implemented Amazon product search functionality</li>
+              <li>Created Reddit discussion scraping capabilities</li>
+              <li>Developed filtering system to remove biased or misleading content</li>
+              <li>Delivered a clearer, faster way to find trustworthy product feedback</li>
+            </ul>
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/annanay25/web-ui">GitHub Repo</a>
+            <a href="https://docs.google.com/presentation/d/15XSftR2eqa9QnKQVOVLVxcVLbxT2Wl0LiJhRfSsUigA/edit?usp=sharing">Slide Deck</a>
+          </div>
+          <div class="image-gallery">
+            <img src="images/aihackathon.png" alt="AI Hackathon">
+            <img src="images/purequery demo.png" alt="PureQuery demo 1">
+            <img src="images/purequery demo2.png" alt="PureQuery demo 2">
+            <img src="images/purequery demo3.png" alt="PureQuery demo 3">
+            <img src="images/purequery demo4.png" alt="PureQuery demo 4">
+          </div>
+        </div>
+        <div class="project">
+          <h3>CramJam</h3>
+          <div class="date">April 2025 </div>
+          <div class="organization">Georgia Institute of Technology's Startup Exchange</div>
+          <ul style="margin-left: 1em;">
+              <li>Built CramJam prototype in under 3 hours — "Where Focus Meets the Flow of Music" </li>
+              <li>Created seamless interface blending music, motivation, and focus tools</li>
+              <li>Designed to help users stay in the zone while studying or working</li>
+              <li>Deployed official site using AWS S3 hosting</li>
+              <li>Optimized for laptop and desktop experience</li>
+            </ul>
+
+
+          <div class="project-links">
+            <a href="https://github.com/DawYem/CramJam">GitHub Repo</a>
+            <a href="https://cramjam.s3.us-east-2.amazonaws.com/CramJam/index.html">Website</a>
+          </div>
+          <div class="image-gallery">
+            <img src="images/gatech hackathon-2.png" alt="Gatech Hackathon">
+            <img src="images/gatech hackathon-1.png" alt="Gatech Hackathon">
+            <img src="images/cramjam-1.png" alt="CramJam demo 1">
+            <img src="images/cramjam-2.png" alt="CramJam demo 2">
+            <img src="images/cramjam-3.png" alt="CramJam demo 3">
+            <img src="images/cramjam-4.png" alt="CramJam demo 4">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card beyond">
+      <h2>Beyond Tech</h2>
+      <div class="card-content">
+        <div class="beyond-item">
+          <p>I enjoy travelling to new places and experiencing different cultures, staying active through fitness and outdoor activities, and giving back to my community through volunteer work and mentoring.</p>
+          <div class="image-gallery">
+            <img src="images/IMG_5843.jpg" alt="Travel photo 1">
+            <img src="images/IMG_6052.jpg" alt="Travel photo 2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Created by Dawit Yemane</p>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    let currentIndex = -1;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightbox.style.display = 'block';
+      lightboxImg.src = images[index].src;
+      lightboxImg.alt = images[index].alt;
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      currentIndex = -1;
+    }
+
+    function showNext() {
+      if (currentIndex >= 0) {
+        currentIndex = (currentIndex + 1) % images.length;
+        lightboxImg.src = images[currentIndex].src;
+        lightboxImg.alt = images[currentIndex].alt;
+      }
+    }
+
+    function showPrev() {
+      if (currentIndex >= 0) {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lightboxImg.src = images[currentIndex].src;
+        lightboxImg.alt = images[currentIndex].alt;
+      }
+    }
+
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display === 'block') {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+      }
+    });
+  </script>
+</body>
+</html>
