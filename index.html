@@ -141,6 +141,31 @@
       letter-spacing: 0.5px;
       font-size: 1.05em;
     }
+
+    /* Resume Section Styles */
+    .resume-button {
+      display: inline-block;
+      background: var(--royal-blue);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--royal-blue);
+    }
+
+    .resume-button:hover {
+      background: var(--accent);
+      color: var(--dark-blue);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    .resume-button::before {
+      content: "📄 ";
+    }
   </style>
 </head>
 <body>
@@ -167,7 +192,13 @@
         <p>Hi, I’m Dawit! I’m a tech student passionate about building innovative projects and contributing to my community. Outside of coding, I enjoy exploring new ideas, learning, and finding ways to create a positive impact.</p>
       </div>
     </div>
-
+    <div class="card resume">
+      <h2>Resume</h2>
+      <div class="card-content">
+        <p>Take a look at my resume to learn more about my skills, experience, and qualifications.</p>
+        <a href="https://docs.google.com/document/d/1PbB0uOYrbvbYzIfuLxe7YwPIOvD6FcgI/edit?usp=sharing&ouid=109411447248338109403&rtpof=true&sd=true" class="resume-button" target="_blank" rel="noopener noreferrer">View Resume</a>
+      </div>
+    </div>
     <div class="card experience">
       <h2>Experience</h2>
       <div class="card-content">
