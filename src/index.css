@@ -158,6 +158,10 @@ p {
   gap: 0.7rem;
 }
 
+.mobile-jump-row {
+  display: none;
+}
+
 .hero-actions {
   margin-top: 1.6rem;
 }
@@ -486,6 +490,85 @@ footer p {
   .site-shell {
     width: calc(100% - 1rem);
     margin-top: 0.5rem;
+  }
+
+  .bg-orb {
+    display: none;
+  }
+
+  .hero,
+  .panel,
+  footer {
+    backdrop-filter: none;
+    background: rgba(13, 39, 57, 0.92);
+  }
+
+  .hero,
+  .panel,
+  footer {
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.26);
+  }
+
+  .mobile-jump-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .mobile-jump-link {
+    min-width: min(100%, 240px);
+    justify-content: center;
+  }
+
+  main {
+    gap: 0.72rem;
+  }
+
+  .hero {
+    padding: 1.8rem 1rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  .hero-actions {
+    margin-top: 1.05rem;
+    gap: 0.55rem;
+  }
+
+  .btn {
+    padding: 0.64rem 1rem;
+  }
+
+  .stack-list {
+    gap: 0.72rem;
+  }
+
+  .entry-card,
+  .contact-copy,
+  .contact-form {
+    padding: 0.85rem;
+  }
+
+  p {
+    line-height: 1.55;
+  }
+
+  ul {
+    margin-top: 0.55rem;
+  }
+
+  li {
+    margin: 0.32rem 0;
+  }
+
+  .gallery {
+    margin-top: 0.7rem;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   }
 
   .contact-grid {

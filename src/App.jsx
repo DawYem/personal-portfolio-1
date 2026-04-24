@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiArrowRight, FiExternalLink, FiGithub, FiLinkedin, FiMonitor } from 'react-icons/fi'
 import mltLogo from '../mlt.png'
@@ -191,20 +191,27 @@ const leadership = [
   },
 ]
 
-function Section({ id, eyebrow, title, children }) {
+function Section({ id, eyebrow, title, children, animate = true }) {
+  const SectionTag = animate ? motion.section : 'section'
+  const motionProps = animate
+    ? {
+        variants: reveal,
+        initial: 'hidden',
+        whileInView: 'shown',
+        viewport: { once: true, amount: 0.2 },
+      }
+    : {}
+
   return (
-    <motion.section
+    <SectionTag
       id={id}
       className="panel"
-      variants={reveal}
-      initial="hidden"
-      whileInView="shown"
-      viewport={{ once: true, amount: 0.2 }}
+      {...motionProps}
     >
       <p className="eyebrow">{eyebrow}</p>
       {title ? <h2>{title}</h2> : null}
       {children}
-    </motion.section>
+    </SectionTag>
   )
 }
 
@@ -236,6 +243,10 @@ function Gallery({ images, onOpen, className = '' }) {
 }
 
 function App() {
+  const [isCompactScreen, setIsCompactScreen] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(max-width: 700px)').matches
+  })
   const [lightboxState, setLightboxState] = useState(null)
   const [contactForm, setContactForm] = useState({
     fullName: '',
@@ -244,6 +255,24 @@ function App() {
   })
   const [contactStatus, setContactStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 700px)')
+
+    const updateScreenSize = () => {
+      setIsCompactScreen(mediaQuery.matches)
+    }
+
+    updateScreenSize()
+
+    mediaQuery.addEventListener('change', updateScreenSize)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateScreenSize)
+    }
+  }, [])
+
+  const animateSections = !isCompactScreen
 
   function openLightbox(images, index) {
     setLightboxState({ images, index })
@@ -353,6 +382,15 @@ function App() {
           </a>
         </motion.div>
 
+        <motion.div className="mobile-jump-row" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}>
+          <a href="#experience" className="btn btn-primary mobile-jump-link">
+            Jump to Experience <FiArrowRight />
+          </a>
+          <a href="#projects" className="btn btn-ghost mobile-jump-link">
+            Projects
+          </a>
+        </motion.div>
+
         <motion.div className="social-strip" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}>
           <a href="https://www.linkedin.com/in/dawityemane/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <FiLinkedin />
@@ -365,7 +403,7 @@ function App() {
       </header>
 
       <main>
-        <Section id="about" eyebrow="About" title="Career profile">
+        <Section id="about" eyebrow="About" title="Career profile" animate={animateSections}>
           <p className="profile-intro">
             I build practical software that solves real-world problems and supports people at scale.
           </p>
@@ -374,7 +412,7 @@ function App() {
           </p>
         </Section>
 
-        <Section id="education" eyebrow="Education" title="Academic foundation">
+        <Section id="education" eyebrow="Education" title="Academic foundation" animate={animateSections}>
           <article className="entry-card">
             <h3>{education.school}</h3>
             <p className="entry-meta">{education.location} • {education.graduation}</p>
@@ -393,7 +431,7 @@ function App() {
           </article>
         </Section>
 
-        <Section id="skills" eyebrow="Skills" title="Technical stack">
+        <Section id="skills" eyebrow="Skills" title="Technical stack" animate={animateSections}>
           <div className="stack-list">
             {technicalSkills.map((skill) => (
               <article key={skill.category} className="entry-card">
@@ -404,7 +442,7 @@ function App() {
           </div>
         </Section>
 
-        <Section id="experience" eyebrow="Experience" title="Work experience">
+        <Section id="experience" eyebrow="Experience" title="Work experience" animate={animateSections}>
           <div className="stack-list">
             {experiences.map((item) => (
               <article key={item.title} className="entry-card">
@@ -422,7 +460,7 @@ function App() {
           </div>
         </Section>
 
-        <Section id="projects" eyebrow="Projects" title="Selected projects">
+        <Section id="projects" eyebrow="Projects" title="Selected projects" animate={animateSections}>
           <div className="stack-list">
             {projects.map((project) => (
               <article key={project.title} className="entry-card">
@@ -447,7 +485,7 @@ function App() {
           </div>
         </Section>
 
-        <Section id="leadership" eyebrow="Leadership" title="Leadership and professional development">
+        <Section id="leadership" eyebrow="Leadership" title="Leadership and professional development" animate={animateSections}>
           <div className="stack-list">
             {leadership.map((item) => (
               <article key={item.title} className="entry-card">
@@ -468,7 +506,7 @@ function App() {
           </div>
         </Section>
 
-        <Section id="beyond" eyebrow="Beyond Tech" title="Travel Photos">
+        <Section id="beyond" eyebrow="Beyond Tech" title="Travel Photos" animate={animateSections}>
           <p>
             I love exploring different countries and places!
           </p>
@@ -482,7 +520,7 @@ function App() {
           />
         </Section>
 
-        <Section id="contact" eyebrow="Contact" title="Contact me">
+        <Section id="contact" eyebrow="Contact" title="Contact me" animate={animateSections}>
           <div className="contact-grid">
             <div className="contact-copy">
               <p>
