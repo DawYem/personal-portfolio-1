@@ -45,6 +45,19 @@ const technicalSkills = [
 
 const experiences = [
   {
+    title: 'Data Integration Intern',
+    organization: 'Savannah River Nuclear Solutions',
+    date: 'May 2026 - Aug 2026',
+    logo: '/images/srns-logo.png',
+    points: [
+      'Built Python automation tools using pandas and JSON to process and transform data from multiple business systems, improving data quality and reducing manual processing efforts.',
+      'Developed data integration pipelines that consolidated information across 3+ data sources, streamlining reporting workflows and increasing data accessibility.',
+      'Automated recurring data preparation and validation tasks, improving reporting consistency and reducing time spent on manual data handling.',
+      'Collaborated with engineers and business stakeholders to design, test, and implement data-driven solutions supporting operational decision-making.',
+    ],
+    images: [],
+  },
+  {
     title: 'Software Engineering Intern',
     organization: 'Clean Community Inc. (Remote)',
     date: 'May 2025 - Aug 2025',

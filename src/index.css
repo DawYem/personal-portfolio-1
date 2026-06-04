@@ -322,14 +322,14 @@ main {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
 }
 .company-logo {
-  width: 4.2rem;
+  width: 9rem;
   height: 4.2rem;
   object-fit: contain;
   display: block;
   margin-bottom: 0.85rem;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.35rem;
+  background: #ffffff;
+  padding: 0.4rem 0.6rem;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
 }
 
